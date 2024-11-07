@@ -4,30 +4,51 @@
         <article>
             <header class="header">
                 <h1 class="header-title">{{ .Title }}</h1>
-                {{ with .Date }}
-                {{ $ISO_time := dateFormat "2006-01-02T15:04:05-07:00" . }}
-                <div class="post-meta">
-                    <time datetime="{{ $ISO_time }}" itemprop="datePublished"> {{ . | time.Format ":date_medium" }} </time>
-                </div>
-                {{ end }}
                 
+                <!-- Date and Author on the same line -->
+                <div class="post-meta">
+                    {{ with .Date }}
+                        {{ $ISO_time := dateFormat "2006-01-02T15:04:05-07:00" . }}
+                        <time datetime="{{ $ISO_time }}" itemprop="datePublished">
+                            {{ . | time.Format ":date_medium" }}
+                        </time>
+                    {{ end }}
+
+                    {{ if .Params.author }}
+                        <span class="post-author">
+                            by
+                            {{ if .Params.authorlink }}
+                                <a href="{{ .Params.authorlink }}" target="_blank">{{ .Params.author }}</a>
+                            {{ else }}
+                                {{ .Params.author }}
+                            {{ end }}
+                        </span>
+                    {{ end }}
+                </div>
+
+                <!-- Tags -->
                 <div class="tags-list">
-                    {{- with .Params.tags -}}
-                        {{- if ge (len .) 1 -}}
-                            <!-- <span>Tags: </span> -->
-                            {{- range . -}}
+                    {{ with .Params.tags }}
+                        {{ if ge (len .) 1 }}
+                            {{ range . }}
                                 <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/">#{{ . }}</a>
-                            {{ end -}}
-                        {{- end -}}
-                    {{- end -}}
+                            {{ end }}
+                        {{ end }}
+                    {{ end }}
                 </div>
             </header>
-            {{ partial "toc.html" .}}
+
+            <!-- Table of Contents -->
+            {{ partial "toc.html" . }}
+
+            <!-- Post Content -->
             <div class="page-content">
                 {{ .Content }}
             </div>
         </article>
-        {{- partial "comments.html" . -}}
+        
+        <!-- Comments Section -->
+        {{ partial "comments.html" . }}
     </main>
 </div>
 {{ end }}
