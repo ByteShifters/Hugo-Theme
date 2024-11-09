@@ -27,7 +27,7 @@ This guide will walk you through the process of cloning and setting up the blog 
    Clone the Hugo theme into the `themes` directory and rename it as `ByteShifter`.
 
    ```
-   git clone https://github.com/ByteShifters/Hugo-Theme.git ByteShifter
+   git clone https://github.com/ByteShifters/Hugo-Theme.git ByteShifters
    ```
 
 4. **Navigate Back to the Root Directory**  
