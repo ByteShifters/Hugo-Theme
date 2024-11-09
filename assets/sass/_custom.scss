@@ -30,3 +30,8 @@ html.dark .post-author {
 .post-author a::after {
     display: none;
 }
+
+pre code {
+    tab-size: 4; /* Adjust the indentation level (default is 8) */
+    // paddi/ng-left: 1em; /* Add padding for left indentation */
+}
